@@ -16,6 +16,7 @@
     "dev": "npm-run-all --parallel build:dev nodemon"
   },
   "dependencies": {
+    "apollo-datasource-rest": "^0.7.0",
     "apollo-server-express": "^2.10.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",

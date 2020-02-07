@@ -1,13 +1,25 @@
 import createError from 'http-errors';
 import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
 import path from 'path';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import typeDefs from './graphql/schemas/me';
+import resolvers from './graphql/resolvers/spotify';
+import SpotifyAPI from './datasources/spotify-api';
 
-import { home } from './routes';
+import { login } from './routes';
 
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  dataSources: (): {} => ({
+    spotifyAPI: new SpotifyAPI()
+  })
+});
 const app = express();
+server.applyMiddleware({ app });
 
 app.use(logger('dev'));
 app.use(cors());
@@ -16,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', home);
+app.use('/login', login);
 
 // catch 404
 app.use((req, res) => {

@@ -37,6 +37,7 @@
     "node-fetch": "^2.6.0",
     "objection": "^2.1.2",
     "pg": "^7.18.1",
+    "redis": "^3.0.2",
     "source-map-support": "^0.5.16"
   },
   "devDependencies": {
@@ -53,6 +54,7 @@
     "@types/morgan": "^1.7.37",
     "@types/node": "^13.1.6",
     "@types/node-fetch": "^2.5.4",
+    "@types/redis": "^2.8.15",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
     "@typescript-eslint/parser": "^2.15.0",
     "eslint": "^6.8.0",

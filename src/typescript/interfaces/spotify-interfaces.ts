@@ -13,3 +13,32 @@ interface TokenBodyParams {
   code?: string;
   refresh_token?: string;
 }
+
+interface AuthorizationResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token: string;
+  scope: string;
+  tokenExpirationTime?: number;
+}
+
+interface SpotifyUser {
+  id: string;
+  display_name: string;
+  email: string;
+  external_urls: {
+    spotify: string;
+  };
+  href: string;
+  images: SpotifyImage[];
+  product: string;
+  type: string;
+  uri: string;
+}
+
+interface SpotifyImage {
+  height: string;
+  url: string;
+  width: string;
+}

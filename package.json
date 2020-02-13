@@ -13,7 +13,15 @@
     "check-format": "npm run prettier -- --list-different",
     "validate": "npm-run-all --parallel check-types check-format lint build",
     "nodemon": "nodemon ./dist/bin/www.js",
-    "dev": "npm-run-all --parallel build:dev nodemon"
+    "dev": "npm-run-all --parallel build:dev nodemon",
+    "set-knex-workdir": "npx knex --cwd dist/database",
+    "migration:create": "npx knex --cwd src/database migrate:make --",
+    "migration:latest": "npm run set-knex-workdir -- migrate:latest",
+    "migration:up": "npm run set-knex-workdir -- migrate:up",
+    "migration:rollback": "npm run set-knex-workdir -- migrate:rollback",
+    "migration:down": "npm run set-knex-workdir -- migrate:down",
+    "migration:currentVersion": "npm run set-knex-workdir -- migrate:currentVersion",
+    "migration:list": "npm run set-knex-workdir -- migrate:list"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.7.0",

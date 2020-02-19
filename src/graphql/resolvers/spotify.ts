@@ -1,5 +1,6 @@
 export default {
   Query: {
-    me: (_, __, { dataSources }): {} => dataSources.spotifyAPI.getMe()
+    user: (_, { email }, { dataSources }): {} =>
+      dataSources.spotifyAPI.getUser(email)
   }
 };

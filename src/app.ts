@@ -5,11 +5,11 @@ import path from 'path';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import typeDefs from './graphql/schemas/me';
+import typeDefs from './graphql/schemas/User';
 import resolvers from './graphql/resolvers/spotify';
 import SpotifyAPI from './datasources/spotify-api';
-
-import { login } from './routes';
+import './database/config';
+import { register } from './routes';
 
 const server = new ApolloServer({
   typeDefs,
@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/login', login);
+app.use('/register', register);
 
 // catch 404
 app.use((req, res) => {

@@ -1,7 +1,13 @@
-export const development = {
+import { Config } from 'knex';
+// below dotenv config is just for knex cli to work properly
+import dotenv from 'dotenv';
+dotenv.config({ path: '../../.env' });
+
+export const development: Config = {
   migrations: {
     directory: './migrations',
-    extension: 'ts'
+    extension: 'ts',
+    stub: './migration-template.ts'
   },
   client: 'postgresql',
   connection: {

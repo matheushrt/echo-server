@@ -3,8 +3,6 @@
 /**
  * Module dependencies.
  */
-import dotenv from 'dotenv';
-dotenv.config();
 import 'source-map-support/register';
 import app from '../app';
 import dbg from 'debug';

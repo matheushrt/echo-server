@@ -11,7 +11,7 @@ export default gql`
     email: String
     external_urls: ExternalURL
     href: String
-    images: [Image]
+    image: [Image]
     product: String
     type: String
     uri: String

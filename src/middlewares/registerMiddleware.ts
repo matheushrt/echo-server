@@ -2,12 +2,8 @@
 import { RequestHandler } from 'express';
 import qs from 'querystring';
 import fetch from 'node-fetch';
-import {
-  hgetallAsync,
-  setAsync,
-  getAsync,
-  hmsetAsync
-} from '../helpers/redisAsync';
+import { setAsync, getAsync, hmsetAsync } from '../helpers/redisAsync';
+import { User } from '../database/models';
 
 export const registerMiddleware: RequestHandler = async (req, res) => {
   const queryParameters: AuthorizeQueryParams = {
@@ -78,6 +74,22 @@ export const registerCallbackMiddleware: RequestHandler = async (req, res) => {
       if (user?.email && userCredentials?.access_token) {
         const telegram_user_id = await getAsync('telegram_user_id');
         await hmsetAsync(user.email, { ...userCredentials, telegram_user_id });
+
+        const graph = {
+          id: user.id,
+          email: user.email,
+          telegram_user_id: parseInt(telegram_user_id),
+          display_name: user.display_name,
+          image: user.images[0].url,
+          href: user.href,
+          product: user.product,
+          type: user.type,
+          uri: user.uri,
+          external_url: user.external_urls.spotify,
+          followers: user.followers.total
+        };
+        await User.query().insertGraphAndFetch(graph);
+
         res.status(201).send('REGISTERED! YOU MAY NOW CLOSE THIS WINDOW.');
       } else res.sendStatus(401);
     } else res.sendStatus(401);

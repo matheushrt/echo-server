@@ -35,10 +35,16 @@ interface SpotifyUser {
   product: string;
   type: string;
   uri: string;
+  followers: SpotifyFollowers;
 }
 
 interface SpotifyImage {
   height: string;
   url: string;
   width: string;
+}
+
+interface SpotifyFollowers {
+  href: string;
+  total: number;
 }

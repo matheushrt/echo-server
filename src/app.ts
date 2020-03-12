@@ -9,7 +9,7 @@ import typeDefs from './graphql/schemas/User';
 import resolvers from './graphql/resolvers/spotify';
 import SpotifyAPI from './datasources/spotify-api';
 import './database/config';
-import { register } from './routes';
+import { register, spotify } from './routes';
 
 const server = new ApolloServer({
   typeDefs,
@@ -26,9 +26,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
+// template engine
+app.set('views', path.join(__dirname, '../views'));
+app.set('view engine', 'pug');
+
+// routes
 app.use('/register', register);
+app.use('/spotify', spotify);
 
 // catch 404
 app.use((req, res) => {

@@ -2,8 +2,8 @@
 import { RequestHandler } from 'express';
 import qs from 'querystring';
 import fetch from 'node-fetch';
-import { setAsync, getAsync, hmsetAsync } from '../helpers/redisAsync';
-import { User } from '../database/models';
+import { setAsync, getAsync, hmsetAsync } from '../../helpers/redisAsync';
+import { User } from '../../database/models';
 
 export const registerMiddleware: RequestHandler = async (req, res) => {
   const queryParameters: AuthorizeQueryParams = {
@@ -88,6 +88,13 @@ export const registerCallbackMiddleware: RequestHandler = async (req, res) => {
           external_url: user.external_urls.spotify,
           followers: user.followers.total
         };
+
+        const userExists = await User.query().findById(graph.id);
+
+        if (userExists) {
+          return res.status(403).send('User already registered');
+        }
+
         await User.query().insertGraphAndFetch(graph);
 
         res.status(201).send('REGISTERED! YOU MAY NOW CLOSE THIS WINDOW.');
@@ -96,4 +103,8 @@ export const registerCallbackMiddleware: RequestHandler = async (req, res) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const registerTemplateMiddleware: RequestHandler = (req, res) => {
+  res.render('register', { botName: process.env.TELEGRAM_BOT_NAME });
 };

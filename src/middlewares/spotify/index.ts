@@ -1,0 +1,1 @@
+export { currentlyPlayingMiddleware } from './spotifyMiddlewares';

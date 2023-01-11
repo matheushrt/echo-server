@@ -32,7 +32,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http-errors": "^1.7.3",
-    "knex": "^0.20.10",
+    "knex": "^2.4.0",
     "morgan": "^1.9.1",
     "node-fetch": "^3.1.1",
     "objection": "^2.2.16",
